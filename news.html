@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Stock News</title>
+</head>
+<body>
+    <h1>Latest Stock News</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/news">News</a>
+    </nav>
+
+    <div class="news-section">
+        {% if news_items %}
+        <ul>
+            {% for news in news_items %}
+            <li class="news-item">
+                <img src="{{ news.image_url }}" alt="News Image" class="news-image">
+                <div class="news-content">
+                    <h3><a href="{{ news.url }}" target="_blank">{{ news.title }}</a></h3>
+                    <p>{{ news.description }}</p>
+                    <p><small>Source: {{ news.source }}</small></p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No news available at the moment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

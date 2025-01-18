@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/news">News</a>
+    </nav>
+
+    <div class="dashboard-summary">
+        <h2>Portfolio Summary</h2>
+        <ul>
+            <li><strong>Total Invested Amount:</strong> ${{ total_invested }}</li>
+            <li><strong>Current Portfolio Value:</strong> ${{ current_value }}</li>
+            <li><strong>Overall Performance:</strong> {{ overall_performance | round(2) }}%</li>
+        </ul>
+    </div>
+
+    <div class="top-performing-stocks">
+        <h2>Top Performing Stocks</h2>
+        <table>
+            <tr>
+                <th>Symbol</th>
+                <th>Performance (%)</th>
+            </tr>
+            {% for stock in top_stocks %}
+            <tr>
+                <td>{{ stock.symbol }}</td>
+                <td>{{ stock.performance | round(2) }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

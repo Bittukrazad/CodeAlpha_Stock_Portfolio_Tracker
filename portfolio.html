@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Portfolio</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/portfolio" class="active">Portfolio</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/news">News</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Your Stock Portfolio</h1>
+
+        <!-- Add Stock Form -->
+        <form class="stock-form" method="POST" action="/add_stock">
+            <div class="form-group">
+                <label for="symbol">Stock Symbol:</label>
+                <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" placeholder="e.g., 10" required>
+            </div>
+            <div class="form-group">
+                <label for="purchase_price">Purchase Price:</label>
+                <input type="number" step="0.01" id="purchase_price" name="purchase_price" placeholder="e.g., 150.00" required>
+            </div>
+            <button type="submit" class="btn">Add Stock</button>
+        </form>
+
+        <!-- Portfolio Table -->
+        <table class="portfolio-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Purchase Price</th>
+                    <th>Current Price</th>
+                    <th>Performance (%)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for symbol, data in portfolio.items() %}
+                <tr>
+                    <td>{{ symbol }}</td>
+                    <td>{{ data.quantity }}</td>
+                    <td>${{ data.purchase_price }}</td>
+                    <td>${{ data.current_price }}</td>
+                    <td class="{{ 'positive' if data.performance >= 0 else 'negative' }}">
+                        {{ data.performance | round(2) }}%
+                    </td>
+                    <td>
+                        <form method="POST" action="/remove_stock" style="display:inline;">
+                            <input type="hidden" name="symbol" value="{{ symbol }}">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Refresh Button -->
+        <form method="POST" action="/refresh" class="refresh-form">
+            <button type="submit" class="btn btn-secondary">Refresh Prices</button>
+        </form>
+    </div>
+</body>
+</html>
