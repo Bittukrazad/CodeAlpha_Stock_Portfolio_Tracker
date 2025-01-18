@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Alpha Vantage API configuration
-API_KEY = 'DHRIZVJ5WGYF85F5'  # Replace with your Alpha Vantage API key
+API_KEY = '...............'  # Replace with your Alpha Vantage API key
 BASE_URL = 'https://www.alphavantage.co/query'
 
 # In-memory data structure to hold portfolio data
@@ -86,7 +86,7 @@ def refresh_prices():
 
 @app.route('/news')
 def news_page():
-    API_KEY = '4db5d02e2c1d49728c7aaa68ad8d93c2'
+    API_KEY = '........................'
     NEWS_API_URL = f'https://newsapi.org/v2/top-headlines?category=business&apiKey={API_KEY}'
 
     response = requests.get(NEWS_API_URL)
